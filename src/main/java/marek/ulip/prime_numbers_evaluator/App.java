@@ -15,9 +15,15 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class App 
 {
-	private static boolean isNumeric(String text) {
-		return text!=null?text.matches("-?\\d+(\\.\\d+)?"):false;
+	/**
+	 * Determines whether provided string is a positive integer or not
+	 * @param text string to evaluate
+	 * @return true if number is positive integer otherwise false
+	 */
+	private static boolean isPositiveInteger(String text) {
+		return text!=null?text.matches("\\d+"):false;
 	}
+	
 	
 	private static boolean isPrime(Long num) {
 		for(long i = 2;i<=(long)Math.sqrt(num);i++) {
@@ -40,7 +46,7 @@ public class App
 			
 			for(Row row : sheet) {
 				String num = row.getCell(dataCellIndex).getStringCellValue();
-				if(isNumeric(num)) {
+				if(isPositiveInteger(num)) {
 					numbers.add(Long.valueOf(num));
 				}			
 			}
