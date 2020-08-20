@@ -16,7 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 public class App 
 {
 	/**
-	 * Determines whether provided string is a positive integer or not
+	 * Determines whether provided string is a positive integer
 	 * @param text string to evaluate
 	 * @return true if number is positive integer otherwise false
 	 */
@@ -24,17 +24,30 @@ public class App
 		return text!=null?text.matches("\\d+"):false;
 	}
 	
-	
+	/**
+	 * Determines whether number is prime
+	 * @param num number to evaluate
+	 * @return true if number is prime otherwise false
+	 */
 	private static boolean isPrime(Long num) {
+		//Using long in case square root of num would be larger than int max size
 		for(long i = 2;i<=(long)Math.sqrt(num);i++) {
 			if(num%i==0)return false;
 		}
 		return true;
 	}
 	
+	/**
+	 * Loads all positive integers from specified column of specified .xlsx file.
+	 * @param path path to a .xlsx file
+	 * @param columnToLoad name of a column that contains numbers
+	 * @return list of all positive integers
+	 */
 	private static List<Long> loadNumbers(String path,String columnToLoad){
 		List<Long> numbers = new ArrayList<>();
-		try(FileInputStream file = new FileInputStream(new File(path));Workbook workbook = new XSSFWorkbook(file)) {
+		
+		try(	FileInputStream file = new FileInputStream(new File(path));
+				Workbook workbook = new XSSFWorkbook(file)) {
 			Sheet sheet = workbook.getSheetAt(0);
 			int dataCellIndex = -1;
 			for(Cell cell : sheet.getRow(0)) {
